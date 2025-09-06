@@ -539,7 +539,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Future<void> _goToBusca() async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const BuscaScreen()),
+      MaterialPageRoute(builder: (context) => BuscaScreen(user: widget.user)),
     );
     await _loadProducts();
     await _loadCartItemCount();
