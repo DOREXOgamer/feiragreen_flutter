@@ -380,7 +380,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                                 items: const [
                                   DropdownMenuItem(
-                                    value: 'buyer',
+                                    value: 'compra',
                                     child: Row(
                                       children: [
                                         Icon(Icons.shopping_cart,
@@ -392,7 +392,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     ),
                                   ),
                                   DropdownMenuItem(
-                                    value: 'seller',
+                                    value: 'venda',
                                     child: Row(
                                       children: [
                                         Icon(Icons.store,

@@ -365,13 +365,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       'color': const Color(0xFF2E7D32),
     },
     {
-      'image': 'assets/imagens/baners/imagem1.png',
+      'image': 'assets/imagens/baners/imagem2.png',
       'title': 'PRODUTOS ORGÂNICOS',
       'subtitle': 'CULTIVADOS COM\nAMOR E CUIDADO',
       'color': const Color(0xFF4CAF50),
     },
     {
-      'image': 'assets/imagens/baners/imagem1.png',
+      'image': 'assets/imagens/baners/imagem3.png',
       'title': 'FRESCOS TODO DIA',
       'subtitle': 'ENTREGAMOS NA SUA\nCASA COM QUALIDADE',
       'color': const Color(0xFF66BB6A),

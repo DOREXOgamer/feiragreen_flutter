@@ -353,7 +353,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 20),
 
                     // Botões de ação
-                    if (widget.user['role'] == 'seller')
+                    if (widget.user['role'] == 'venda' || widget.user['role'] == 'admin')
                       Row(
                         children: [
                           Expanded(

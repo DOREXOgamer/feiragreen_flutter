@@ -11,6 +11,7 @@ class SeedData {
       'email': 'admin@feiragreens.com',
       'senha': 'admin123',
       'imagemPerfil': null,
+      'role': 'admin',
     },
   ];
 
