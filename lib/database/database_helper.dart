@@ -29,7 +29,7 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 4, // Atualizado para versão 4 para adicionar coluna categoria
+      version: 5, // Atualizado para versão 5 para adicionar coluna role
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -43,7 +43,8 @@ class DatabaseHelper {
         nome TEXT NOT NULL,
         email TEXT NOT NULL UNIQUE,
         senha TEXT NOT NULL,
-        imagemPerfil TEXT
+        imagemPerfil TEXT,
+        role TEXT NOT NULL DEFAULT 'buyer'
       )
     ''');
 
@@ -132,6 +133,13 @@ class DatabaseHelper {
       // Adicionar coluna categoria na tabela products na atualização para versão 4
       await db.execute('''
         ALTER TABLE products ADD COLUMN categoria TEXT DEFAULT 'Outros'
+      ''');
+    }
+
+    if (oldVersion < 5) {
+      // Adicionar coluna role na tabela users na atualização para versão 5
+      await db.execute('''
+        ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'buyer'
       ''');
     }
   }

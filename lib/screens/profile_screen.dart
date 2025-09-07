@@ -353,68 +353,98 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 20),
 
                     // Botões de ação
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: Colors.blue.shade50,
-                              border: Border.all(
-                                color: Colors.blue.shade200,
-                                width: 1,
+                    if (widget.user['role'] == 'seller')
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue.shade50,
+                                border: Border.all(
+                                  color: Colors.blue.shade200,
+                                  width: 1,
+                                ),
                               ),
-                            ),
-                            child: TextButton.icon(
-                              onPressed: _gerenciarProdutos,
-                              icon: const Icon(
-                                Icons.inventory,
-                                color: Colors.blue,
-                                size: 28,
-                              ),
-                              label: const Text(
-                                'Meus\nProdutos',
-                                style: TextStyle(
+                              child: TextButton.icon(
+                                onPressed: _gerenciarProdutos,
+                                icon: const Icon(
+                                  Icons.inventory,
                                   color: Colors.blue,
-                                  fontWeight: FontWeight.bold,
+                                  size: 28,
                                 ),
-                                textAlign: TextAlign.center,
+                                label: const Text(
+                                  'Meus\nProdutos',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Container(
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: Colors.grey.shade50,
-                              border: Border.all(
-                                color: Colors.grey.shade200,
-                                width: 1,
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Container(
+                              height: 80,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.grey.shade50,
+                                border: Border.all(
+                                  color: Colors.grey.shade200,
+                                  width: 1,
+                                ),
                               ),
-                            ),
-                            child: TextButton.icon(
-                              onPressed: _sair,
-                              icon: const Icon(
-                                Icons.logout,
-                                color: Colors.grey,
-                                size: 28,
-                              ),
-                              label: const Text(
-                                'Sair',
-                                style: TextStyle(
+                              child: TextButton.icon(
+                                onPressed: _sair,
+                                icon: const Icon(
+                                  Icons.logout,
                                   color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
+                                  size: 28,
+                                ),
+                                label: const Text(
+                                  'Sair',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
+                        ],
+                      )
+                    else
+                      // Para compradores, mostrar apenas o botão de sair centralizado
+                      Container(
+                        width: double.infinity,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.grey.shade50,
+                          border: Border.all(
+                            color: Colors.grey.shade200,
+                            width: 1,
+                          ),
                         ),
-                      ],
-                    ),
+                        child: TextButton.icon(
+                          onPressed: _sair,
+                          icon: const Icon(
+                            Icons.logout,
+                            color: Colors.grey,
+                            size: 28,
+                          ),
+                          label: const Text(
+                            'Sair',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
 
                     const SizedBox(height: 16),
 

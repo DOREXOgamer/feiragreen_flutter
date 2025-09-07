@@ -4,6 +4,7 @@ class User {
   final String email;
   final String senha;
   final String? imagemPerfil;
+  final String role;
 
   User({
     this.id,
@@ -11,6 +12,7 @@ class User {
     required this.email,
     required this.senha,
     this.imagemPerfil,
+    this.role = 'buyer',
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class User {
       'email': email,
       'senha': senha,
       'imagemPerfil': imagemPerfil,
+      'role': role,
     };
   }
 
@@ -30,6 +33,7 @@ class User {
       email: map['email'],
       senha: map['senha'],
       imagemPerfil: map['imagemPerfil'],
+      role: map['role'] ?? 'buyer',
     );
   }
 }

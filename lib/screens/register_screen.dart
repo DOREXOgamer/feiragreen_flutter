@@ -21,6 +21,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isPasswordObscured = true;
   bool _isConfirmPasswordObscured = true;
 
+  String _selectedRole = 'buyer';
+
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -49,6 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       'email': email,
       'senha': senha,
       'imagemPerfil': null,
+      'role': _selectedRole,
     };
 
     await DatabaseHelper.instance.insertUser(user);
@@ -336,6 +339,78 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Por favor, confirme a senha';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+
+                            // Campo Tipo de Conta
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.1),
+                                    blurRadius: 8,
+                                    offset: const Offset(0, 4),
+                                  ),
+                                ],
+                              ),
+                              child: DropdownButtonFormField<String>(
+                                value: _selectedRole,
+                                decoration: InputDecoration(
+                                  labelText: 'Tipo de Conta',
+                                  hintText: 'Selecione o tipo de conta',
+                                  prefixIcon: const Icon(
+                                    Icons.account_circle,
+                                    color: Color(0xFF2E7D32),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 16,
+                                  ),
+                                ),
+                                items: const [
+                                  DropdownMenuItem(
+                                    value: 'buyer',
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.shopping_cart,
+                                            color: Color(0xFF2E7D32)),
+                                        SizedBox(width: 10),
+                                        Text(
+                                            'Comprador'),
+                                      ],
+                                    ),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: 'seller',
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.store,
+                                            color: Color(0xFF2E7D32)),
+                                        SizedBox(width: 10),
+                                        Text('Vendedor'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedRole = value!;
+                                  });
+                                },
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Por favor, selecione o tipo de conta';
                                   }
                                   return null;
                                 },
