@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             textTheme: TextTheme(
-              bodyLarge: TextStyle(color: Colors.white),
+              bodyLarge: TextStyle(color: Colors.grey[900]!),
               bodyMedium: TextStyle(color: Colors.white70),
             ),
             colorScheme: ColorScheme.dark(
@@ -112,8 +112,7 @@ class MyApp extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: Colors.grey[600]!),
               ),
-              labelStyle: TextStyle(color: Colors.white70),
-              hintStyle: TextStyle(color: Colors.white60),
+              
             ),
             dialogTheme: DialogThemeData(
               backgroundColor: Colors.grey[800],
