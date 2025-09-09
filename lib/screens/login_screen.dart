@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:feiragreen_flutter/database/database_helper.dart';
 import 'package:feiragreen_flutter/screens/register_screen.dart';
 import 'package:feiragreen_flutter/screens/home_screen.dart';
-import 'package:feiragreen_flutter/main.dart'; // Importe o main para acessar themeNotifier
+import 'package:feiragreen_flutter/main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _senhaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String _errorMessage = '';
-  // Variável de estado para controlar a visibilidade da senha.
+  // visibilidade da senha.
   bool _isPasswordObscured = true;
 
   Future<void> _login() async {
@@ -71,7 +71,6 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Logo e título com animação
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(

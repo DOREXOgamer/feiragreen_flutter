@@ -21,7 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isPasswordObscured = true;
   bool _isConfirmPasswordObscured = true;
 
-  String _selectedRole = 'buyer';
+  String _selectedRole = 'compra';
 
   Future<void> _register() async {
     if (!_formKey.currentState!.validate()) return;
@@ -386,8 +386,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         Icon(Icons.shopping_cart,
                                             color: Color(0xFF2E7D32)),
                                         SizedBox(width: 10),
-                                        Text(
-                                            'Comprador'),
+                                        Text('Comprador'),
                                       ],
                                     ),
                                   ),

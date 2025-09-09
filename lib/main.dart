@@ -23,6 +23,9 @@ class MyApp extends StatelessWidget {
       builder: (context, mode, _) {
         return MaterialApp(
           title: 'Projeto Integrador',
+          
+          //para remover a faixa de debug
+          debugShowCheckedModeBanner: false,
 
           // Tema Claro
           theme: ThemeData(
@@ -130,7 +133,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Widget que adiciona o botão de alternância no AppBar
+//botão de alternância 
 class ThemeSwitcherAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
@@ -166,8 +169,6 @@ class ThemeSwitcherAppBar extends StatelessWidget
                 : ThemeMode.dark;
           },
         ),
-        // Outras ações se existirem
-        ...?actions,
       ],
     );
   }

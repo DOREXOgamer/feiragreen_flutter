@@ -10,7 +10,7 @@ class DetailScreen extends StatelessWidget {
     super.key,
     required this.itemId,
     required this.itemName,
-    this.cliquesContador = 0, // Valor padrão caso não seja passado
+    this.cliquesContador = 0,
   });
 
   @override
@@ -44,7 +44,7 @@ class DetailScreen extends StatelessWidget {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); // Volta para a tela anterior
+                Navigator.pop(context); 
               },
               child: const Text('Voltar para Tela Principal'),
             ),

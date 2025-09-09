@@ -1,4 +1,3 @@
-// Crie um novo arquivo em components/atoms/theme_background.dart
 import 'package:flutter/material.dart';
 
 class ThemeBackground extends StatelessWidget {

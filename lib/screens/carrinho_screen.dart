@@ -51,7 +51,7 @@ class _CarrinhoScreenState extends State<CarrinhoScreen>
         widget.userId,
       );
 
-      // Carrega informações completas dos produtos
+      // Carrega informações dos produtos
       final allProductsData = await DatabaseHelper.instance.getAllProducts();
       final allProducts =
           allProductsData.map((e) => Product.fromMap(e)).toList();
@@ -115,7 +115,7 @@ class _CarrinhoScreenState extends State<CarrinhoScreen>
         cartItemId,
         newQuantity,
       );
-      await _loadCartItems(); // Recarrega os itens para atualizar o total
+      await _loadCartItems();
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erro ao atualizar quantidade: $e')),
@@ -126,7 +126,7 @@ class _CarrinhoScreenState extends State<CarrinhoScreen>
   Future<void> _removeItem(int cartItemId) async {
     try {
       await DatabaseHelper.instance.deleteCartItem(cartItemId);
-      await _loadCartItems(); // Recarrega os itens após remoção
+      await _loadCartItems();
     } catch (e) {
       ScaffoldMessenger.of(
         context,
@@ -396,7 +396,6 @@ class _CarrinhoScreenState extends State<CarrinhoScreen>
                                             item['imageUrl']),
                                       ),
                                       const SizedBox(width: 16),
-
                                       // Informações do produto
                                       Expanded(
                                         child: Column(
@@ -454,7 +453,6 @@ class _CarrinhoScreenState extends State<CarrinhoScreen>
                                           ],
                                         ),
                                       ),
-
                                       // Controles de quantidade
                                       Column(
                                         children: [
@@ -535,7 +533,7 @@ class _CarrinhoScreenState extends State<CarrinhoScreen>
                           ),
                         ),
 
-                        // Resumo e botão de finalizar
+                        // botão de finalizar
                         Container(
                           padding: const EdgeInsets.all(24),
                           decoration: BoxDecoration(
@@ -646,7 +644,7 @@ class _CarrinhoScreenState extends State<CarrinhoScreen>
                                           .showSnackBar(
                                         const SnackBar(
                                           content: Text(
-                                              'Funcionalidade de checkout em desenvolvimento'),
+                                              'Ainda Nao'),
                                           backgroundColor: Color(0xFF2E7D32),
                                         ),
                                       );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:feiragreen_flutter/main.dart'; // Importe para acessar themeNotifier
+import 'package:feiragreen_flutter/main.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;

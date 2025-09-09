@@ -12,13 +12,10 @@ class DatabaseHelper {
   Future<Database> get database async {
     if (_database != null) return _database!;
 
-    // Inicializar sqflite ffi apenas para plataformas desktop
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
       sqfliteFfiInit();
       databaseFactory = databaseFactoryFfi;
     }
-    // Para plataformas móveis (Android, iOS), usar o sqflite padrão
-
     _database = await _initDatabase();
     return _database!;
   }
@@ -29,7 +26,7 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 5, // Atualizado para versão 5 para adicionar coluna role
+      version: 5,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -76,7 +73,7 @@ class DatabaseHelper {
       )
     ''');
 
-    // Criar a tabela 'todos' (mantida para compatibilidade)
+    // Criar a tabela 'todos'
     await db.execute('''
       CREATE TABLE todos(
         id INTEGER PRIMARY KEY,
@@ -85,6 +82,11 @@ class DatabaseHelper {
         completed INTEGER
       )
     ''');
+  }
+
+  Future<bool> _columnExists(Database db, String table, String column) async {
+    final result = await db.rawQuery("PRAGMA table_info($table)");
+    return result.any((row) => row['name'] == column);
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -131,16 +133,20 @@ class DatabaseHelper {
 
     if (oldVersion < 4) {
       // Adicionar coluna categoria na tabela products na atualização para versão 4
-      await db.execute('''
-        ALTER TABLE products ADD COLUMN categoria TEXT DEFAULT 'Outros'
-      ''');
+      if (!await _columnExists(db, 'products', 'categoria')) {
+        await db.execute('''
+          ALTER TABLE products ADD COLUMN categoria TEXT DEFAULT 'Outros'
+        ''');
+      }
     }
 
     if (oldVersion < 5) {
       // Adicionar coluna role na tabela users na atualização para versão 5
-      await db.execute('''
-        ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'buyer'
-      ''');
+      if (!await _columnExists(db, 'users', 'role')) {
+        await db.execute('''
+          ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'buyer'
+        ''');
+      }
     }
   }
 
@@ -264,7 +270,7 @@ class DatabaseHelper {
     );
   }
 
-  // CRUD para todos (mantido para compatibilidade)
+  // CRUD para todo
   Future<List<Map<String, dynamic>>> getTodos() async {
     return await _database!.query('todos');
   }
