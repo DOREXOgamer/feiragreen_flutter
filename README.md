@@ -267,19 +267,19 @@ flowchart TB
 
   subgraph Domain[Domain]
     Entities[entities]
-    ReposInterfaces[repositories (interfaces)]
+    ReposInterfaces[repository interfaces]
     UseCasesDomain[usecases]
   end
 
   subgraph Infrastructure[Infrastructure]
     Services[services]
-    RepositoriesImpl[repositories]
+    RepositoriesImpl[repositories impl]
     Database[database]
     DI[di]
     Logging[logging]
   end
 
-  ExternalFirebase[(Firebase)]
+  ExternalFirebase[Firebase]
 
   %% Dependências entre pacotes
   Presentation --> Application
