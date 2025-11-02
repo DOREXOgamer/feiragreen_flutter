@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:feiragreen_flutter/infrastructure/services/firebase_service.dart';
 import 'package:feiragreen_flutter/domain/entities/user.dart' as user_entity;
 import 'package:feiragreen_flutter/presentation/pages/login_screen.dart';
+import 'package:feiragreen_flutter/presentation/components/atoms/error_banner.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -448,31 +449,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             const SizedBox(height: 12),
 
-                            // Mensagem de erro
+                            // Mensagem de erro (banner padronizado)
                             if (_errorMessage.isNotEmpty)
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: BoxDecoration(
-                                  color: Colors.red.shade50,
-                                  borderRadius: BorderRadius.circular(8),
-                                  border:
-                                      Border.all(color: Colors.red.shade200),
-                                ),
-                                child: Row(
-                                  children: [
-                                    const Icon(Icons.error_outline,
-                                        color: Colors.red, size: 20),
-                                    const SizedBox(width: 8),
-                                    Expanded(
-                                      child: Text(
-                                        _errorMessage,
-                                        style:
-                                            const TextStyle(color: Colors.red),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              ErrorBanner(message: _errorMessage),
 
                             const SizedBox(height: 32),
 

@@ -6,7 +6,7 @@ import 'package:feiragreen_flutter/infrastructure/logging/logger_service.dart';
 import 'package:feiragreen_flutter/infrastructure/di/service_locator.dart';
 
 // Notificador global para armazenar o tema atual
-final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.system);
+final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.dark);
 
 Future<void> main() async {
   // 1. Garante que o Flutter e os plugins estejam prontos antes de chamar qualquer código nativo.
@@ -58,6 +58,11 @@ class MyApp extends StatelessWidget {
               foregroundColor: Colors.green,
               elevation: 2,
             ),
+            textSelectionTheme: const TextSelectionThemeData(
+              cursorColor: Color(0xFF2E7D32),
+              selectionHandleColor: Color(0xFF2E7D32),
+              selectionColor: Color(0x332E7D32),
+            ),
             dialogTheme: const DialogThemeData(
               // Corrigido: DialogThemeData em vez de DialogTheme
               backgroundColor: Colors.white,
@@ -99,6 +104,11 @@ class MyApp extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.grey),
               ),
             ),
+            snackBarTheme: const SnackBarThemeData(
+              backgroundColor: Colors.black87,
+              contentTextStyle: TextStyle(color: Colors.white),
+              behavior: SnackBarBehavior.floating,
+            ),
           ),
 
           // Tema Escuro
@@ -111,6 +121,11 @@ class MyApp extends StatelessWidget {
               backgroundColor: Colors.transparent,
               foregroundColor: Colors.white,
               elevation: 2,
+            ),
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: Colors.green[700],
+              selectionHandleColor: Colors.green[700],
+              selectionColor: Colors.green[700]!.withOpacity(0.35),
             ),
             dialogTheme: DialogThemeData(
               // Corrigido: DialogThemeData em vez de DialogTheme
@@ -154,6 +169,15 @@ class MyApp extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: Colors.grey[600]!),
               ),
+              focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
+                borderSide: BorderSide(color: Color(0xFF2E7D32), width: 1.5),
+              ),
+            ),
+            snackBarTheme: SnackBarThemeData(
+              backgroundColor: Colors.grey[800],
+              contentTextStyle: const TextStyle(color: Colors.white),
+              behavior: SnackBarBehavior.floating,
             ),
           ),
 

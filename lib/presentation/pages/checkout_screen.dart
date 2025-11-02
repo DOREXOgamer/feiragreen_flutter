@@ -4,6 +4,7 @@ import 'package:feiragreen_flutter/infrastructure/services/cep_service.dart';
 import 'package:feiragreen_flutter/infrastructure/services/firebase_service.dart';
 import 'package:feiragreen_flutter/domain/entities/product.dart';
 import 'package:feiragreen_flutter/application/services/logger_service.dart';
+import 'package:feiragreen_flutter/presentation/components/atoms/error_banner.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final String userId;
@@ -25,6 +26,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   bool _isLoading = false;
   double _total = 0.0;
   String _paymentMethod = 'Pix';
+  String _errorMessage = '';
+  bool _savePurchaseInfo = false;
 
   List<Map<String, dynamic>> _cartItems = [];
 
@@ -96,17 +99,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       LoggerService.instance.error('Erro ao carregar dados de checkout',
           tag: 'CheckoutScreen', error: e);
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Erro ao carregar dados: $e')));
+      setState(() => _errorMessage = 'Erro ao carregar dados: $e');
     }
   }
 
   Future<void> _simulatePurchase() async {
     if (!_formKey.currentState!.validate()) return;
     if (_cartItems.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Carrinho vazio. Adicione itens antes.')),
-      );
+      setState(() => _errorMessage = 'Carrinho vazio. Adicione itens antes.');
       return;
     }
 
@@ -121,6 +121,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       await firebaseService.clearUserCart(widget.userId);
 
       final orderId = 'FG-${Random().nextInt(900000) + 100000}';
+
+      // Salvar informações da compra se marcado
+      if (_savePurchaseInfo) {
+        final buyerInfo = {
+          'nome': _nomeController.text.trim(),
+          'endereco': _enderecoController.text.trim(),
+          'cep': _cepController.text.trim(),
+          'cidade': _cidadeController.text.trim(),
+          'estado': _estadoController.text.trim(),
+        };
+        await firebaseService.createOrder(
+          userId: widget.userId,
+          orderId: orderId,
+          items: _cartItems,
+          total: _total,
+          paymentMethod: _paymentMethod,
+          buyerInfo: buyerInfo,
+        );
+      }
 
       if (!mounted) return;
       await showDialog<void>(
@@ -154,8 +173,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       LoggerService.instance.error('Erro ao simular compra',
           tag: 'CheckoutScreen', error: e);
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Erro ao finalizar: $e')));
+      setState(() => _errorMessage = 'Erro ao finalizar: $e');
     }
   }
 
@@ -202,6 +220,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                   const Divider(),
                   const SizedBox(height: 8),
+                  if (_errorMessage.isNotEmpty) ...[
+                    ErrorBanner(
+                      message: _errorMessage,
+                      onClose: () => setState(() => _errorMessage = ''),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
 
                   const Text(
                     'Dados do Comprador',
@@ -287,6 +312,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     decoration: const InputDecoration(border: OutlineInputBorder()),
                   ),
 
+                  const SizedBox(height: 12),
+                  CheckboxListTile(
+                    value: _savePurchaseInfo,
+                    onChanged: (v) => setState(() => _savePurchaseInfo = v ?? false),
+                    title: const Text('Salvar informações da compra'),
+                    subtitle: const Text('Guardar itens, total e forma de pagamento no seu histórico'),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+
                   const SizedBox(height: 24),
                   SizedBox(
                     width: double.infinity,
@@ -328,12 +363,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString().replaceAll('Exception: ', '')),
-          backgroundColor: Colors.red[700],
-        ),
-      );
+      setState(() => _errorMessage = e.toString().replaceAll('Exception: ', ''));
     }
   }
 }

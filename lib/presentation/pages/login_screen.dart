@@ -27,7 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final senha = _senhaController.text.trim();
 
     try {
-      final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: senha,
       );
@@ -35,7 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
       // Get user data from Firestore
       final firebaseService = FirebaseService();
       try {
-        final user = await firebaseService.getUserById(userCredential.user!.uid);
+        final user =
+            await firebaseService.getUserById(userCredential.user!.uid);
 
         if (user != null) {
           final userMap = user.toMap();
@@ -47,7 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         } else {
           setState(() {
-            _errorMessage = 'Erro ao obter dados do usuário. Usuário não encontrado no banco de dados.';
+            _errorMessage =
+                'Erro ao obter dados do usuário. Usuário não encontrado no banco de dados.';
           });
         }
       } catch (e) {
@@ -171,18 +174,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               child: TextFormField(
                                 controller: _emailController,
-                                cursorColor: Theme.of(context).colorScheme.primary,
+                                cursorColor:
+                                    Theme.of(context).colorScheme.primary,
                                 style: TextStyle(
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
                                 ),
                                 decoration: InputDecoration(
                                   labelText: 'Email',
                                   hintText: 'seu@email.com',
                                   labelStyle: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.8),
                                   ),
                                   hintStyle: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.6),
                                   ),
                                   prefixIcon: const Icon(
                                     Icons.email_outlined,
@@ -193,7 +204,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderSide: BorderSide.none,
                                   ),
                                   filled: true,
-                                  fillColor: Theme.of(context).inputDecorationTheme.fillColor,
+                                  fillColor: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .fillColor,
                                   contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 20,
                                     vertical: 16,
@@ -227,18 +240,26 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextFormField(
                                 controller: _senhaController,
                                 obscureText: _isPasswordObscured,
-                                cursorColor: Theme.of(context).colorScheme.primary,
+                                cursorColor:
+                                    Theme.of(context).colorScheme.primary,
                                 style: TextStyle(
-                                  color: Theme.of(context).colorScheme.onSurface,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
                                 ),
                                 decoration: InputDecoration(
                                   labelText: 'Senha',
                                   hintText: 'Digite sua senha',
                                   labelStyle: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.8),
                                   ),
                                   hintStyle: TextStyle(
-                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withOpacity(0.6),
                                   ),
                                   prefixIcon: const Icon(
                                     Icons.lock_outline,
@@ -263,7 +284,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderSide: BorderSide.none,
                                   ),
                                   filled: true,
-                                  fillColor: Theme.of(context).inputDecorationTheme.fillColor,
+                                  fillColor: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .fillColor,
                                   contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 20,
                                     vertical: 16,
@@ -287,21 +310,43 @@ class _LoginScreenState extends State<LoginScreen> {
                               Container(
                                 padding: const EdgeInsets.all(12),
                                 decoration: BoxDecoration(
-                                  color: Colors.red.shade50,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Theme.of(context)
+                                          .colorScheme
+                                          .error
+                                          .withOpacity(0.15)
+                                      : Theme.of(context)
+                                          .colorScheme
+                                          .error
+                                          .withOpacity(0.08),
                                   borderRadius: BorderRadius.circular(8),
-                                  border:
-                                      Border.all(color: Colors.red.shade200),
+                                  border: Border.all(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .error
+                                        .withOpacity(
+                                            Theme.of(context).brightness ==
+                                                    Brightness.dark
+                                                ? 0.5
+                                                : 0.3),
+                                  ),
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.error_outline,
-                                        color: Colors.red, size: 20),
+                                    Icon(Icons.error_outline,
+                                        color:
+                                            Theme.of(context).colorScheme.error,
+                                        size: 20),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
                                         _errorMessage,
-                                        style:
-                                            const TextStyle(color: Colors.red),
+                                        style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onErrorContainer,
+                                        ),
                                       ),
                                     ),
                                   ],

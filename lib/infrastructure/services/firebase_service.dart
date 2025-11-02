@@ -22,6 +22,9 @@ class FirebaseService
   // Cart items collection reference
   CollectionReference get _cartItems => _firestore.collection('cart_items');
 
+  // Orders collection reference
+  CollectionReference get _orders => _firestore.collection('orders');
+
   // UserRepository implementation
   @override
   Future<void> setUser(User user) async {
@@ -246,5 +249,30 @@ class FirebaseService
     for (var doc in querySnapshot.docs) {
       await doc.reference.delete();
     }
+  }
+
+  // Create order document with purchase info
+  Future<String> createOrder({
+    required String userId,
+    required String orderId,
+    required List<Map<String, dynamic>> items,
+    required double total,
+    required String paymentMethod,
+    Map<String, dynamic>? buyerInfo,
+  }) async {
+    final payload = {
+      'userId': userId,
+      'orderId': orderId,
+      'items': items,
+      'total': total,
+      'paymentMethod': paymentMethod,
+      'buyerInfo': buyerInfo ?? {},
+      'createdAt': FieldValue.serverTimestamp(),
+    };
+
+    LoggerService.instance.info('Create order',
+        tag: 'FirebaseService', data: {'userId': userId, 'orderId': orderId});
+    final docRef = await _orders.add(payload);
+    return docRef.id;
   }
 }
