@@ -247,3 +247,49 @@ flowchart LR
   Cart --Repositório--> Repo[(CartItemRepository)]
   Catalog --Repositório--> PRepo[(ProductRepository)]
 ```
+
+## Diagrama de Pacotes
+
+```mermaid
+flowchart TB
+  %% Pacotes principais
+  subgraph Presentation[Presentation]
+    Pages[pages]
+    Components[components]
+    Widgets[widgets]
+    Utils[utils]
+  end
+
+  subgraph Application[Application]
+    Providers[providers]
+    UseCasesApp[use_cases]
+  end
+
+  subgraph Domain[Domain]
+    Entities[entities]
+    ReposInterfaces[repositories (interfaces)]
+    UseCasesDomain[usecases]
+  end
+
+  subgraph Infrastructure[Infrastructure]
+    Services[services]
+    RepositoriesImpl[repositories]
+    Database[database]
+    DI[di]
+    Logging[logging]
+  end
+
+  ExternalFirebase[(Firebase)]
+
+  %% Dependências entre pacotes
+  Presentation --> Application
+  Application --> Domain
+  Application --> Infrastructure
+  Infrastructure --> ExternalFirebase
+  RepositoriesImpl --> ReposInterfaces
+  Services --> ReposInterfaces
+  Services --> ExternalFirebase
+  DI --> Infrastructure
+  Logging --> Infrastructure
+  Database --> Infrastructure
+```
