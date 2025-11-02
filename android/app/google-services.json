@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "134147853973",
+    "project_id": "feiragreen-3d1ed",
+    "storage_bucket": "feiragreen-3d1ed.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134147853973:android:07c41cd51cf6abddff559c",
+        "android_client_info": {
+          "package_name": "com.example.feiragreen_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbx-FGBrNf4tshyAgtzjXEF_DoSidU63o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134147853973:android:42a165c2469d104bff559c",
+        "android_client_info": {
+          "package_name": "com.feiragreen.flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbx-FGBrNf4tshyAgtzjXEF_DoSidU63o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
