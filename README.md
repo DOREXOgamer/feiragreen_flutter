@@ -215,10 +215,10 @@ Widget buildTightLayoutTestApp(Widget child) {
 ### Arquitetura por camadas
 ```mermaid
 flowchart LR
-  Presentation[Presentation (UI)] --> Application[Application]
+  Presentation[Presentation UI] --> Application[Application]
   Application --> Domain[Domain]
   Application --> Infrastructure[Infrastructure]
-  Infrastructure --> Firebase[(Firebase / Dados)]
+  Infrastructure --> Firebase[Firebase]
 ```
 
 ### Fluxo de autenticação
@@ -244,8 +244,8 @@ flowchart LR
   Product --> Cart[Carrinho]
   Cart --> Checkout[Checkout]
   Checkout --> Order[Pedido Confirmado]
-  Cart --Repositório--> Repo[(CartItemRepository)]
-  Catalog --Repositório--> PRepo[(ProductRepository)]
+  Cart --Repositório--> Repo[CartItemRepository]
+  Catalog --Repositório--> PRepo[ProductRepository]
 ```
 
 ## Diagrama de Pacotes
@@ -253,25 +253,25 @@ flowchart LR
 ```mermaid
 flowchart TB
   %% Pacotes principais
-  subgraph Presentation[Presentation]
+  subgraph Presentation
     Pages[pages]
     Components[components]
     Widgets[widgets]
     Utils[utils]
   end
 
-  subgraph Application[Application]
+  subgraph Application
     Providers[providers]
     UseCasesApp[use_cases]
   end
 
-  subgraph Domain[Domain]
+  subgraph Domain
     Entities[entities]
     ReposInterfaces[repository interfaces]
     UseCasesDomain[usecases]
   end
 
-  subgraph Infrastructure[Infrastructure]
+  subgraph Infrastructure
     Services[services]
     RepositoriesImpl[repositories impl]
     Database[database]
