@@ -44,6 +44,8 @@ class MyApp extends StatelessWidget {
           title: 'Projeto Integrador',
           // Para remover a faixa de debug
           debugShowCheckedModeBanner: false,
+          // Respeita o modo atual (claro/escuro) definido pelo themeNotifier
+          themeMode: mode,
 
           // Tema Claro
           theme: ThemeData(
@@ -154,8 +156,6 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-
-          themeMode: mode, // Alterna entre claro/escuro
 
           home: const LoginScreen(),
         );

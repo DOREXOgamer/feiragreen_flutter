@@ -177,9 +177,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               child: TextFormField(
                                 controller: _nomeController,
+                                cursorColor: Theme.of(context).colorScheme.primary,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                ),
                                 decoration: InputDecoration(
                                   labelText: 'Nome Completo',
                                   hintText: 'Digite seu nome completo',
+                                  labelStyle: TextStyle(
+                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+                                  ),
+                                  hintStyle: TextStyle(
+                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                                  ),
                                   prefixIcon: const Icon(
                                     Icons.person_outline,
                                     color: Color(0xFF2E7D32),
@@ -189,7 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     borderSide: BorderSide.none,
                                   ),
                                   filled: true,
-                                  fillColor: Colors.white,
+                                  fillColor: Theme.of(context).inputDecorationTheme.fillColor,
                                   contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 20,
                                     vertical: 16,

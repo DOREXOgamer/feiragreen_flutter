@@ -74,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: ThemeSwitcherAppBar(title: 'Login'),
       body: Container(
@@ -82,11 +82,16 @@ class _LoginScreenState extends State<LoginScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              const Color(0xFF2E7D32).withValues(alpha: 0.1),
-              Colors.white,
-              const Color(0xFF4CAF50).withValues(alpha: 0.05),
-            ],
+            colors: isDark
+                ? [
+                    Colors.grey[900]!,
+                    Colors.grey[850]!,
+                  ]
+                : [
+                    const Color(0xFF2E7D32).withValues(alpha: 0.1),
+                    Colors.white,
+                    const Color(0xFF4CAF50).withValues(alpha: 0.05),
+                  ],
           ),
         ),
         child: Center(
@@ -166,9 +171,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               child: TextFormField(
                                 controller: _emailController,
+                                cursorColor: Theme.of(context).colorScheme.primary,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                ),
                                 decoration: InputDecoration(
                                   labelText: 'Email',
                                   hintText: 'seu@email.com',
+                                  labelStyle: TextStyle(
+                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+                                  ),
+                                  hintStyle: TextStyle(
+                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                                  ),
                                   prefixIcon: const Icon(
                                     Icons.email_outlined,
                                     color: Color(0xFF2E7D32),
@@ -178,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderSide: BorderSide.none,
                                   ),
                                   filled: true,
-                                  fillColor: Colors.white,
+                                  fillColor: Theme.of(context).inputDecorationTheme.fillColor,
                                   contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 20,
                                     vertical: 16,
@@ -212,9 +227,19 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextFormField(
                                 controller: _senhaController,
                                 obscureText: _isPasswordObscured,
+                                cursorColor: Theme.of(context).colorScheme.primary,
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.onSurface,
+                                ),
                                 decoration: InputDecoration(
                                   labelText: 'Senha',
                                   hintText: 'Digite sua senha',
+                                  labelStyle: TextStyle(
+                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+                                  ),
+                                  hintStyle: TextStyle(
+                                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                                  ),
                                   prefixIcon: const Icon(
                                     Icons.lock_outline,
                                     color: Color(0xFF2E7D32),
@@ -238,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderSide: BorderSide.none,
                                   ),
                                   filled: true,
-                                  fillColor: Colors.white,
+                                  fillColor: Theme.of(context).inputDecorationTheme.fillColor,
                                   contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 20,
                                     vertical: 16,

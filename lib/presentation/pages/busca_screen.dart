@@ -200,8 +200,7 @@ class _BuscaScreenState extends ConsumerState<BuscaScreen> {
                           const SizedBox(height: 20),
                           Text(
                             'Encontre produtos frescos',
-                            style: TextStyle(
-                              color: Colors.grey[700],
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
@@ -210,8 +209,7 @@ class _BuscaScreenState extends ConsumerState<BuscaScreen> {
                           const SizedBox(height: 12),
                           Text(
                             'Digite o nome do produto que você procura',
-                            style: TextStyle(
-                              color: Colors.grey[500],
+                            style: const TextStyle(
                               fontSize: 16,
                             ),
                             textAlign: TextAlign.center,
@@ -306,8 +304,7 @@ class _BuscaScreenState extends ConsumerState<BuscaScreen> {
                               const SizedBox(height: 16),
                               Text(
                                 'Nenhum produto encontrado',
-                                style: TextStyle(
-                                  color: Colors.grey[600],
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -315,8 +312,7 @@ class _BuscaScreenState extends ConsumerState<BuscaScreen> {
                               const SizedBox(height: 8),
                               Text(
                                 'Tente buscar por outro termo',
-                                style: TextStyle(
-                                  color: Colors.grey[500],
+                                style: const TextStyle(
                                   fontSize: 14,
                                 ),
                                 textAlign: TextAlign.center,

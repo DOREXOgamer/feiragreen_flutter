@@ -85,6 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Meu Perfil'),
@@ -104,10 +105,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              const Color(0xFF2E7D32).withValues(alpha: 0.1),
-              Colors.white,
-            ],
+            colors: isDark
+                ? [
+                    Colors.grey[900]!,
+                    Colors.grey[850]!,
+                  ]
+                : [
+                    const Color(0xFF2E7D32).withValues(alpha: 0.1),
+                    Colors.white,
+                  ],
           ),
         ),
         child: SingleChildScrollView(
@@ -543,7 +549,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Text(
                 '© 2025 FeiraGreen - Produtos Frescos e Naturais',
                 style: TextStyle(
-                  color: Colors.grey[500],
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onBackground
+                      .withOpacity(0.6),
                   fontSize: 12,
                 ),
               ),

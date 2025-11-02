@@ -16,6 +16,7 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -34,7 +35,7 @@ class SearchField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(
-            color: Colors.grey[500],
+            color: theme.colorScheme.onSurface.withOpacity(0.6),
             fontSize: 16,
           ),
           prefixIcon: Container(
@@ -71,15 +72,16 @@ class SearchField extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: theme.inputDecorationTheme.fillColor,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 20,
             vertical: 18,
           ),
         ),
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
+          color: theme.colorScheme.onSurface,
         ),
       ),
     );

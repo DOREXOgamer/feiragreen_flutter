@@ -98,8 +98,7 @@ class CustomInput extends StatelessWidget {
         const EdgeInsets.symmetric(horizontal: 20, vertical: 16);
     
     // Define a cor de preenchimento baseada no tema ou usa a personalizada
-    final bgColor = fillColor ?? 
-        (isDarkMode ? Colors.grey[800] : Colors.white);
+    final bgColor = fillColor ?? theme.inputDecorationTheme.fillColor;
     
     // Cria uma sombra sutil para dar profundidade ao campo
     return Container(
@@ -124,9 +123,19 @@ class CustomInput extends StatelessWidget {
         enabled: enabled,
         maxLines: obscureText ? 1 : maxLines, // Campos de senha sempre têm 1 linha
         minLines: minLines,
+        cursorColor: theme.colorScheme.primary,
+        style: TextStyle(
+          color: theme.colorScheme.onSurface,
+        ),
         decoration: InputDecoration(
           labelText: labelText,
           hintText: hintText,
+          labelStyle: TextStyle(
+            color: theme.colorScheme.onSurface.withOpacity(0.8),
+          ),
+          hintStyle: TextStyle(
+            color: theme.colorScheme.onSurface.withOpacity(0.6),
+          ),
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           border: OutlineInputBorder(

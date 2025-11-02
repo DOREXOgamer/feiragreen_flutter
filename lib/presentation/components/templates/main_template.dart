@@ -23,6 +23,7 @@ class MainTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: CustomAppBar(
         title: title,
@@ -32,7 +33,7 @@ class MainTemplate extends StatelessWidget {
         cartItemCount: cartItemCount,
       ),
       body: body,
-      backgroundColor: backgroundColor ?? Colors.grey[50],
+      backgroundColor: backgroundColor ?? theme.scaffoldBackgroundColor,
     );
   }
 }

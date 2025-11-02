@@ -309,7 +309,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
     );
   }
-}
   Future<void> _buscarCep() async {
     final cep = _cepController.text.trim();
     try {
@@ -337,3 +336,4 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       );
     }
   }
+}

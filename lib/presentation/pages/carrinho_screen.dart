@@ -425,7 +425,6 @@ class _CarrinhoScreenState extends State<CarrinhoScreen>
                                               style: const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.black87,
                                               ),
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,

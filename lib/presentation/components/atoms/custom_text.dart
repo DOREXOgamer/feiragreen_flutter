@@ -18,11 +18,11 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final theme = Theme.of(context);
     final defaultStyle = TextStyle(
-      color: isDarkMode ? Colors.white : Colors.black,
+      color: theme.colorScheme.onBackground,
     );
-    
+
     return Text(
       text,
       style: defaultStyle.merge(style),

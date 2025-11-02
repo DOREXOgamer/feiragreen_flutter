@@ -141,11 +141,12 @@ class _AddressScreenState extends State<AddressScreen> {
                 ),
                 child: TextField(
                   controller: _cepController,
+                  cursorColor: Theme.of(context).colorScheme.primary,
                   decoration: InputDecoration(
                     labelText: 'CEP',
                     hintText: '00000-000',
                     hintStyle: TextStyle(
-                      color: Colors.grey[500],
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                       fontSize: 16,
                     ),
                     border: OutlineInputBorder(
@@ -153,7 +154,7 @@ class _AddressScreenState extends State<AddressScreen> {
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: Colors.white,
+                    fillColor: Theme.of(context).inputDecorationTheme.fillColor,
                     prefixIcon: Container(
                       margin: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
@@ -186,9 +187,10 @@ class _AddressScreenState extends State<AddressScreen> {
                       vertical: 18,
                     ),
                   ),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                   keyboardType: TextInputType.number,
                   maxLength: 9,
