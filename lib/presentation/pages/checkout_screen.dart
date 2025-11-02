@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:feiragreen_flutter/infrastructure/services/cep_service.dart';
 import 'package:feiragreen_flutter/infrastructure/services/firebase_service.dart';
 import 'package:feiragreen_flutter/domain/entities/product.dart';
 import 'package:feiragreen_flutter/application/services/logger_service.dart';
@@ -223,11 +224,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           validator: (v) => (v == null || v.trim().isEmpty) ? 'Informe o endereço' : null,
                         ),
                         const SizedBox(height: 8),
-                        TextFormField(
-                          controller: _cepController,
-                          decoration: const InputDecoration(labelText: 'CEP'),
-                          keyboardType: TextInputType.number,
-                          validator: (v) => (v == null || v.trim().length < 8) ? 'CEP inválido' : null,
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: _cepController,
+                                decoration: const InputDecoration(labelText: 'CEP'),
+                                keyboardType: TextInputType.number,
+                                validator: (v) {
+                                  final digits = (v ?? '').replaceAll(RegExp(r'[^0-9]'), '');
+                                  return digits.length == 8 ? null : 'CEP inválido';
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            ElevatedButton(
+                              onPressed: _buscarCep,
+                              child: const Text('Buscar'),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 8),
                         Row(
@@ -295,4 +310,30 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 }
-
+  Future<void> _buscarCep() async {
+    final cep = _cepController.text.trim();
+    try {
+      final endereco = await CepService.consultarCep(cep);
+      if (endereco != null) {
+        setState(() {
+          _cidadeController.text = endereco.localidade;
+          _estadoController.text = endereco.uf;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'CEP encontrado: ${endereco.logradouro.isNotEmpty ? endereco.logradouro : 'Endereço carregado'}',
+            ),
+            backgroundColor: const Color(0xFF2E7D32),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString().replaceAll('Exception: ', '')),
+          backgroundColor: Colors.red[700],
+        ),
+      );
+    }
+  }

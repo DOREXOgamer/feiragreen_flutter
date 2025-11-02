@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:feiragreen_flutter/domain/entities/cep.dart';
 
@@ -17,7 +18,7 @@ class CepService {
       }
 
       final url = Uri.parse('$_baseUrl/$cepLimpo/json/');
-      final response = await http.get(url);
+      final response = await http.get(url).timeout(const Duration(seconds: 8));
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -31,11 +32,14 @@ class CepService {
       } else {
         throw Exception('Erro na requisição: ${response.statusCode}');
       }
+    } on TimeoutException {
+      throw Exception('Tempo de resposta excedido. Tente novamente.');
     } catch (e) {
       if (e is http.ClientException) {
         throw Exception('Erro de conexão. Verifique sua internet.');
       }
-      rethrow;
+      // Trata erros inesperados de parsing/estrutura
+      throw Exception('Falha ao consultar CEP. ${e.toString()}');
     }
   }
 
