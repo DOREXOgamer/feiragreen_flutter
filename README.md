@@ -115,3 +115,135 @@ Essa divisão facilita testes, manutenção e evolução das funcionalidades.
 ---
 
 Caso precise de exemplos de uso de serviços/repositórios ou de uma seção específica mais detalhada (ex.: autenticação, fluxo de compra, DI), posso complementar com trechos de código e diagramas simplificados.
+
+## Exemplos de Código
+
+### Validação de email na LoginScreen (exemplo simplificado)
+```dart
+bool isEmailValid(String value) => value.contains('@');
+
+// Dentro do formulário
+TextFormField(
+  // ideal ter uma key para facilitar o teste: Key('emailField')
+  validator: (value) {
+    if (value == null || value.isEmpty) return 'Informe o email';
+    if (!isEmailValid(value)) return 'Email inválido';
+    return null;
+  },
+)
+```
+
+### Teste de UI: erro para email inválido
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
+import 'package:feiragreen_flutter/presentation/pages/login_screen.dart';
+
+Widget buildTestApp(Widget child) {
+  return MediaQuery(
+    data: const MediaQueryData(textScaleFactor: 0.7),
+    child: MaterialApp(home: child),
+  );
+}
+
+void main() {
+  testWidgets('Email inválido mostra erro', (tester) async {
+    await tester.pumpWidget(buildTestApp(const LoginScreen()));
+
+    // Preenche email sem '@' e senha
+    await tester.enterText(find.byType(TextFormField).at(0), 'invalido');
+    await tester.enterText(find.byType(TextFormField).at(1), '123456');
+
+    // Toca no botão Entrar
+    await tester.tap(find.text('Entrar'));
+    await tester.pumpAndSettle();
+
+    // Verifica mensagem de erro
+    expect(find.text('Email inválido'), findsOneWidget);
+  });
+}
+```
+
+### Teste de Unidade: login com MockFirebaseAuth
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
+import 'package:feiragreen_flutter/infrastructure/services/firebase_auth_service.dart';
+
+void main() {
+  test('Login sucesso retorna UserCredential', () async {
+    final mockAuth = MockFirebaseAuth(signedIn: true);
+    final service = FirebaseAuthService(mockAuth);
+
+    final result = await service.login('user@example.com', 'password');
+    expect(result.user, isNotNull);
+  });
+
+  test('Login falha lança Exception (mock genérico)', () async {
+    final mockAuth = MockFirebaseAuth(signedIn: false);
+    final service = FirebaseAuthService(mockAuth);
+
+    expect(
+      () async => service.login('naoexiste@example.com', 'errada'),
+      throwsA(isA<Exception>()), // ou alinhar para FirebaseAuthException se o serviço propagar
+    );
+  });
+}
+```
+
+### Repositório de Produtos (uso hipotético)
+```dart
+import 'package:feiragreen_flutter/repositories/product_repository.dart';
+
+final repo = ProductRepository();
+final products = await repo.getAll();
+// Atualiza estado da UI com a lista de produtos
+```
+
+### Helper para evitar overflow em testes de UI
+```dart
+Widget buildTightLayoutTestApp(Widget child) {
+  return MediaQuery(
+    data: const MediaQueryData(textScaleFactor: 0.7),
+    child: MaterialApp(home: child),
+  );
+}
+```
+
+## Diagramas (simplificados)
+
+### Arquitetura por camadas
+```mermaid
+flowchart LR
+  Presentation[Presentation (UI)] --> Application[Application]
+  Application --> Domain[Domain]
+  Application --> Infrastructure[Infrastructure]
+  Infrastructure --> Firebase[(Firebase / Dados)]
+```
+
+### Fluxo de autenticação
+```mermaid
+sequenceDiagram
+  participant UI as LoginScreen
+  participant App as Application
+  participant Svc as FirebaseAuthService
+  participant FB as Firebase
+
+  UI->>App: Entrar(email, senha)
+  App->>Svc: login(email, senha)
+  Svc->>FB: signInWithEmailAndPassword
+  FB-->>Svc: UserCredential ou Exception
+  Svc-->>App: Resultado
+  App-->>UI: Feedback (erro/sucesso) e navegação
+```
+
+### Fluxo de compra (alto nível)
+```mermaid
+flowchart LR
+  Catalog[Catálogo] --> Product[Detalhe do Produto]
+  Product --> Cart[Carrinho]
+  Cart --> Checkout[Checkout]
+  Checkout --> Order[Pedido Confirmado]
+  Cart --Repositório--> Repo[(CartItemRepository)]
+  Catalog --Repositório--> PRepo[(ProductRepository)]
+```
