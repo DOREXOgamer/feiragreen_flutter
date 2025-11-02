@@ -107,15 +107,6 @@ Essa divisão facilita testes, manutenção e evolução das funcionalidades.
   - Garanta que `flutter analyze` e `flutter test` passam.
   - Abra um Pull Request descrevendo a mudança.
 
-## Roadmap (sugestão)
-- Melhorar cobertura de testes para cenários de falha no Firebase.
-- Adicionar documentação de casos de uso e diagramas simples da arquitetura.
-- Padronizar mensagens de erro e UX nas telas de autenticação e compra.
-
----
-
-Caso precise de exemplos de uso de serviços/repositórios ou de uma seção específica mais detalhada (ex.: autenticação, fluxo de compra, DI), posso complementar com trechos de código e diagramas simplificados.
-
 ## Exemplos de Código
 
 ### Validação de email na LoginScreen (exemplo simplificado)
