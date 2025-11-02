@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:feiragreen_flutter/infrastructure/services/firebase_service.dart';
 import 'package:feiragreen_flutter/domain/entities/product.dart';
 import 'package:feiragreen_flutter/application/services/logger_service.dart';
+import 'package:feiragreen_flutter/presentation/pages/checkout_screen.dart';
 
 class CarrinhoScreen extends StatefulWidget {
   final String userId;
@@ -659,12 +660,10 @@ class _CarrinhoScreenState extends State<CarrinhoScreen>
                                       LoggerService.instance.info('Finalizar compra acionado',
                                           tag: 'CarrinhoScreen',
                                           data: {'userId': widget.userId, 'items': _cartItems.length, 'total': _total});
-                                      // Navegar para a tela de checkout
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text('Ainda Nao'),
-                                          backgroundColor: Color(0xFF2E7D32),
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => CheckoutScreen(userId: widget.userId),
                                         ),
                                       );
                                     },
