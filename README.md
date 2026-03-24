@@ -280,6 +280,46 @@ flowchart TB
   RepositoriesImpl --> ReposInterfaces
   Services --> ReposInterfaces
   Services --> ExternalFirebase
+
+
+  ## 📊 Diagrama de Casos de Uso
+
+Este diagrama descreve as principais interações entre os atores (Cliente, Vigilante e Administrador) e as funcionalidades centrais do ecossistema.
+
+```mermaid
+useCaseDiagram
+    actor "Cliente" as C
+    actor "Vigilante" as V
+    actor "Administrador" as A
+
+    package "Plataforma de Segurança Regional" {
+        usecase "Cadastrar/Login" as UC1
+        usecase "Solicitar Vigilância (Maps)" as UC2
+        usecase "Aceitar/Recusar Chamado" as UC3
+        usecase "Enviar Documentação (CNV)" as UC4
+        usecase "Validar Credenciais" as UC5
+        usecase "Avaliar Serviço" as UC6
+        usecase "Gerenciar Escala 12x36" as UC7
+    }
+
+    %% Interações do Cliente
+    C --> UC1
+    C --> UC2
+    C --> UC6
+
+    %% Interações do Vigilante
+    V --> UC1
+    V --> UC4
+    V --> UC3
+    V --> UC7
+    V --> UC6
+
+    %% Interações do Administrador
+    A --> UC5
+    
+    %% Relacionamentos entre casos
+    UC2 ..> UC3 : <<include>>
+    UC5 ..> UC4 : <<extend>>
   DI --> Infrastructure
   Logging --> Infrastructure
   Database --> Infrastructure
